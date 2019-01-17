@@ -17,7 +17,27 @@ __status__ = "Development"
 
 import os
 import digitre_preprocessing as prep
-import digitre_model
+# import digitre_model
+import numpy
+import tensorflow as tf
+
+
+import keras
+from keras import backend as K
+
+
+from keras.datasets import mnist
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import Dropout
+from keras.layers import Flatten
+from keras.layers.convolutional import Conv2D
+from keras.layers.convolutional import MaxPooling2D
+from keras.optimizers import Adam
+from keras.utils import np_utils
+from keras.models import load_model
+import numpy as np
+
 
 class Classifier(object):
     """
@@ -44,10 +64,8 @@ class Classifier(object):
     """
 
     def __init__(self, file_name='cnn.tflearn'):
-        cwd = os.path.dirname(__file__)
-        # Load the model
-        self.model = digitre_model.build()
-        self.model.load(os.path.join(cwd, file_name))
+        self.model  = load_model('/tmp/mnistCNN.h5')
+        self.model._make_predict_function()
 
 
     def preprocess(self, digit_image):
